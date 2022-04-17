@@ -4,6 +4,11 @@
  */
 package barberodormilon;
 
+import java.util.HashSet;
+import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author axelg
@@ -14,7 +19,8 @@ public class barberia extends javax.swing.JFrame {
      * Creates new form barberia
      */
     int espera=0;
-    
+    int nextCliente=0;
+    Cliente list_espera;
     public barberia() {
         initComponents();
         persona1.setVisible(false);
@@ -25,6 +31,8 @@ public class barberia extends javax.swing.JFrame {
         cortando1.setVisible(false);
         cortando2.setVisible(false);
         cortando3.setVisible(false);
+        
+        Barberia.start();
     }
 
     /**
@@ -309,32 +317,76 @@ public class barberia extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public int cant_clientes;
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        espera = espera +1;
-        if(espera==1)
-        {
-          persona1.setVisible(true);
-         
-        }
-        if(espera==2)
-        {
-            persona2.setVisible(true);
-            
-        }
-        if(espera==3)
-        {
-            persona3.setVisible(true);
-            
-        }
-        if(espera==4)
-        {
-            persona4.setVisible(true);
-       
-        }
+
+        Cliente nuevo = new Cliente("C" + this.nextCliente++);
         
+        if(cant_clientes<3)
+        {
+                   try {
+                  mutex.acquire(); // Entra a la región crítica
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.insertar_elemento(nuevo); // Coloca el nuevo elemento en el búfer
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                mutex.release(); // Sale de la región crítica
+                Cliente_esperando++; 
+                                System.out.println(nuevo.get_Nombre() + " insertado" + nuevo.get_Tiempo());
+        }
+        else
+        {
+            espera(nuevo);
+        }
+
+//        espera = espera +1;
+//        if(espera==1)
+//        {
+//          persona1.setVisible(true);
+//         
+//        }
+//        if(espera==2)
+//        {
+//            persona2.setVisible(true);
+//            
+//        }
+//        if(espera==3)
+//        {
+//            persona3.setVisible(true);
+//            
+//        }
+//        if(espera==4)
+//        {
+//            persona4.setVisible(true);
+//       
+//        }
+//        
             
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    public void espera(Cliente nuevo)
+    {
+        if(list_espera==null)
+        {
+            list_espera = nuevo;
+        }
+        else
+        {
+            Cliente aux= list_espera;
+            while(aux.get_Next()!=null)
+            {
+                aux= aux.get_Next();
+            }
+            aux.set_Next(nuevo);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -370,6 +422,123 @@ public class barberia extends javax.swing.JFrame {
         });
     }
 
+    private static Semaphore mutex = new Semaphore(1, true); // Controla el acceso a la región crítica
+    private static int Cliente_esperando = 0; // Cuenta las ranuras Cliente_esperando del búfer
+    private barbershop Barberia = new barbershop();
+    
+    public void insertar_elemento(Cliente elemento){
+        if (Sillas[0]==null) {
+            Sillas[0] = elemento;
+        }
+        else if (Sillas[1]==null) {
+            Sillas[1] = elemento;
+        }
+        else if (Sillas[2]==null) {
+            Sillas[2] = elemento;
+        }
+    }
+
+    public void quitar_elemento(int pos) {
+
+        if (list_espera != null) {
+            Sillas[pos] = list_espera;
+            list_espera = list_espera.get_Next();
+        } else {
+            Sillas[pos] = null;
+        }
+    }
+
+    /**
+     * Clases a utilizar
+     */
+    private static Cliente Sillas[] = new Cliente[3]; // Número de ranuras en el búfer
+
+    public class barbershop extends Thread {
+
+        @Override
+        public void run() {
+            while (true) { // Ciclo de barberia
+                // Inicio semáforo Barbero
+                while (Cliente_esperando <= 0) {
+                    //    System.out.println("Sin Clientes ...");
+                }
+                                                 try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                int ocupados = 0;
+                 if (Sillas[0] != null) {
+                    Barbero b1 = new Barbero();
+                    b1.numbarb = 1;
+                    b1.Set_Cliente(Sillas[0]);
+                    b1.start();
+                    ocupados++;
+                }
+                if (Sillas[1] != null) {
+                    Barbero b2 = new Barbero();
+                    b2.numbarb = 2;
+                    b2.Set_Cliente(Sillas[1]);
+                    b2.start();
+                    ocupados++;
+                }
+                if (Sillas[2] != null) {
+                    Barbero b3 = new Barbero();
+                    b3.numbarb = 3;
+                    b3.Set_Cliente(Sillas[2]);
+                    b3.start();
+                    ocupados++;
+                }
+                Cliente_esperando = (Cliente_esperando-ocupados);
+                // Fin semáforo Cliente_esperando
+
+            }
+        }
+    }
+
+    public class Barbero extends Thread {
+
+        private Cliente atendiendo;
+        public int numbarb;
+
+        public void Set_Cliente(Cliente nuevo)
+        {
+            this.atendiendo = nuevo;
+        }
+        
+        @Override
+        public void run() {
+                 System.out.println("Despertando a barbero " + numbarb);
+                Cliente elemento = atendiendo;
+                    try {
+                        mutex.acquire(); // Entra a la región crítica
+                        System.out.println("Despertando a barbero " + numbarb);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    this.cortarCabello(elemento);
+                    quitar_elemento(numbarb-1);
+                    mutex.release(); // Sale de la región crítica
+
+        }
+
+        private void cortarCabello(Cliente elemento) {
+            System.out.println("Cortando cabello a " + elemento.get_Nombre());
+            try {
+                Thread.sleep(elemento.get_Tiempo() * 1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Termino corte a" + elemento.get_Nombre() );
+        }
+    }
+
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel barbero1;
     private javax.swing.JLabel barbero2;
