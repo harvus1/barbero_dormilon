@@ -119,7 +119,7 @@ public class barberia extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(121, Short.MAX_VALUE)
@@ -429,12 +429,18 @@ public class barberia extends javax.swing.JFrame {
     public void insertar_elemento(Cliente elemento){
         if (Sillas[0]==null) {
             Sillas[0] = elemento;
+            cortando1.setVisible(true);
+            
         }
         else if (Sillas[1]==null) {
             Sillas[1] = elemento;
+            cortando2.setVisible(true);
+
         }
         else if (Sillas[2]==null) {
             Sillas[2] = elemento;
+            cortando3.setVisible(true);
+
         }
     }
 
@@ -451,7 +457,7 @@ public class barberia extends javax.swing.JFrame {
     /**
      * Clases a utilizar
      */
-    private static Cliente Sillas[] = new Cliente[3]; // Número de ranuras en el búfer
+    private static final Cliente Sillas[] = new Cliente[3]; // Número de ranuras en el búfer
 
     public class barbershop extends Thread {
 
@@ -472,6 +478,7 @@ public class barberia extends javax.swing.JFrame {
                     Barbero b1 = new Barbero();
                     b1.numbarb = 1;
                     b1.Set_Cliente(Sillas[0]);
+                    persona1.setVisible(true);
                     b1.start();
                     ocupados++;
                 }
@@ -513,6 +520,8 @@ public class barberia extends javax.swing.JFrame {
                     try {
                         mutex.acquire(); // Entra a la región crítica
                         System.out.println("Despertando a barbero " + numbarb);
+                        barbero1.setVisible(true);
+                        
                     } catch (InterruptedException ex) {
                         Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
                     }
