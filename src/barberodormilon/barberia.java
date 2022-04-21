@@ -329,47 +329,7 @@ public class barberia extends javax.swing.JFrame {
                 
         if(sillas_barberos<3)
         {
-                if(clientes==1){
-                    cortando1.setVisible(true);
-                    cortando2.setVisible(false);
-                    cortando3.setVisible(false);
-                    
-                    barbero1.setVisible(false);
-                    z1.setVisible(false);
-                }
-                if(clientes==2){
-                    cortando1.setVisible(true);
-                    cortando2.setVisible(true);
-                    cortando3.setVisible(false);
-                    
-                    barbero2.setVisible(false);
-                    z2.setVisible(false);
-                    
-                }
-                if(clientes==3){
-                    cortando1.setVisible(true);
-                    cortando2.setVisible(true);
-                    cortando3.setVisible(true);
-                    
-                    barbero3.setVisible(false);
-                    z3.setVisible(false);
-                }
-                if(clientes==4){
-                    persona1.setVisible(true);
-                }
-                if(clientes==5){
-                    persona2.setVisible(true);
-                }
-                if(clientes==6){
-                   persona3.setVisible(true);
-                }
-                if(clientes==7){
-                    persona4.setVisible(true);
-                }
-                if(clientes>7){
-                    modelo.addElement("Cliente");   
-                    
-                }
+                
                 
                 try {
                   mutex.acquire(); // Entra a la región crítica
