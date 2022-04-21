@@ -15,6 +15,10 @@ public class BarberoDormilon {
      */
     public static void main(String[] args) {
             new barberia().setVisible(true);
+            
+            
+            
+            
     }
     
 }

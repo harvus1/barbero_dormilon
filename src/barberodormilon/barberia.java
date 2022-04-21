@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -21,6 +22,7 @@ public class barberia extends javax.swing.JFrame {
     int espera=0;
     int nextCliente=0;
     Cliente list_espera;
+    public DefaultListModel modelo = new DefaultListModel();
     public barberia() {
         initComponents();
         persona1.setVisible(false);
@@ -119,7 +121,7 @@ public class barberia extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(121, Short.MAX_VALUE)
@@ -337,13 +339,30 @@ public class barberia extends javax.swing.JFrame {
                     Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 mutex.release(); // Sale de la región crítica
-                Cliente_esperando++; 
+                Cliente_esperando++;
+                System.out.println("cant" + Cliente_esperando);
+                
                                 System.out.println(nuevo.get_Nombre() + " insertado" + nuevo.get_Tiempo());
+                                
         }
         else
         {
-            espera(nuevo);
+            
+            ///si las sillas estan llenas
+            if(Cliente_esperando > 3){
+                espera(nuevo);
+                ocuparSillasenEspera(Cliente_esperando);               
+            }
+            else
+            {
+                System.out.println("Cliente esperando ");
+                jList1.setModel(modelo);   
+            }
+              Cliente_esperando++;
+            
         }
+        
+
 
 //        espera = espera +1;
 //        if(espera==1)
@@ -370,6 +389,29 @@ public class barberia extends javax.swing.JFrame {
             
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+      private void ocuparSillasenEspera(int silla) {
+            switch (silla) {
+                case 1:
+                    persona1.setVisible(true);
+                    break;
+                case 2:
+                    persona2.setVisible(true);
+                    break;
+                case 3:
+                    persona3.setVisible(true);
+                    break;
+                case 4:
+                    persona4.setVisible(true);
+                    break;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    
     
     public void espera(Cliente nuevo)
     {
@@ -429,12 +471,15 @@ public class barberia extends javax.swing.JFrame {
     public void insertar_elemento(Cliente elemento){
         if (Sillas[0]==null) {
             Sillas[0] = elemento;
+            cortando1.setVisible(true);
         }
         else if (Sillas[1]==null) {
             Sillas[1] = elemento;
+            cortando2.setVisible(true);
         }
         else if (Sillas[2]==null) {
             Sillas[2] = elemento;
+            cortando3.setVisible(true);
         }
     }
 
@@ -462,7 +507,7 @@ public class barberia extends javax.swing.JFrame {
                 while (Cliente_esperando <= 0) {
                     //    System.out.println("Sin Clientes ...");
                 }
-                                                 try {
+                    try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
