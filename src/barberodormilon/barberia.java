@@ -425,6 +425,9 @@ public class barberia extends javax.swing.JFrame {
     private static Semaphore mutex = new Semaphore(1, true); // Controla el acceso a la región crítica
     private static int Cliente_esperando = 0; // Cuenta las ranuras Cliente_esperando del búfer
     private barbershop Barberia = new barbershop();
+    Barbero b1;
+    Barbero b2;
+    Barbero b3;
     
     public void insertar_elemento(Cliente elemento){
         if (Sillas[0]==null) {
@@ -463,27 +466,29 @@ public class barberia extends javax.swing.JFrame {
                     //    System.out.println("Sin Clientes ...");
                 }
                                                  try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                                                                  System.out.println("Despertando a barberos ");
+
                 int ocupados = 0;
                  if (Sillas[0] != null) {
-                    Barbero b1 = new Barbero();
+                    b1 = new Barbero();
                     b1.numbarb = 1;
                     b1.Set_Cliente(Sillas[0]);
                     b1.start();
                     ocupados++;
                 }
                 if (Sillas[1] != null) {
-                    Barbero b2 = new Barbero();
+                    b2 = new Barbero();
                     b2.numbarb = 2;
                     b2.Set_Cliente(Sillas[1]);
                     b2.start();
                     ocupados++;
                 }
                 if (Sillas[2] != null) {
-                    Barbero b3 = new Barbero();
+                    b3 = new Barbero();
                     b3.numbarb = 3;
                     b3.Set_Cliente(Sillas[2]);
                     b3.start();
