@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,21 +19,31 @@ public class barberia extends javax.swing.JFrame {
     /**
      * Creates new form barberia
      */
-    int espera=0;
-    int nextCliente=0;
+    int espera = 0;
+    int nextCliente = 0;
     Cliente list_espera;
+
     public barberia() {
         initComponents();
         persona1.setVisible(false);
         persona2.setVisible(false);
         persona3.setVisible(false);
         persona4.setVisible(false);
-        
+
         cortando1.setVisible(false);
         cortando2.setVisible(false);
         cortando3.setVisible(false);
-        
-        Barberia.start();
+        Cliente_esperando = 0;
+        b1.numbarb = 0;
+        b2.numbarb = 1;
+        b3.numbarb = 2;
+        b1.info = lbl_info1;
+        b2.info = lbl_info2;
+        b3.info = lbl_info3;
+        b1.start();
+        b2.start();
+        b3.start();
+
     }
 
     /**
@@ -55,9 +66,9 @@ public class barberia extends javax.swing.JFrame {
         barbero1 = new javax.swing.JLabel();
         barbero2 = new javax.swing.JLabel();
         barbero3 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lbl_zz1 = new javax.swing.JLabel();
+        lbl_zz2 = new javax.swing.JLabel();
+        lbl_zz3 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -72,130 +83,92 @@ public class barberia extends javax.swing.JFrame {
         cortando1 = new javax.swing.JLabel();
         cortando2 = new javax.swing.JLabel();
         cortando3 = new javax.swing.JLabel();
+        lbl_info1 = new javax.swing.JLabel();
+        lbl_info2 = new javax.swing.JLabel();
+        lbl_info3 = new javax.swing.JLabel();
+        lbl_info = new javax.swing.JLabel();
+        lbl_fila = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         jLabel1.setText("BARBEROS DORMILONES");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 388, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/poste-de-barbero (3).png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 60, 100));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/poste-de-barbero (3).png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 30, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/silla.png"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/silla.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/silla.png"))); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 360, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         barbero1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/barbero.png"))); // NOI18N
+        jPanel1.add(barbero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         barbero2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/barbero.png"))); // NOI18N
+        jPanel1.add(barbero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         barbero3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/barbero.png"))); // NOI18N
+        jPanel1.add(barbero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel11.setText("zzzZZZZZ");
+        lbl_zz1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_zz1.setText("B1>ZZZZZ");
+        jPanel1.add(lbl_zz1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel12.setText("zzzZZZZZ");
+        lbl_zz2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_zz2.setText("B2>ZZZZZ");
+        jPanel1.add(lbl_zz2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel13.setText("zzzZZZZZ");
+        lbl_zz3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_zz3.setText("B3>ZZZZZ");
+        jPanel1.add(lbl_zz3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(barbero3)
-                    .addComponent(barbero2)
-                    .addComponent(barbero1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12))
-                .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(121, Short.MAX_VALUE)
-                    .addComponent(jLabel13)
-                    .addContainerGap()))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(barbero1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel11)))
-                .addGap(34, 34, 34)
-                .addComponent(barbero2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(barbero3)
-                    .addComponent(jLabel12))
-                .addGap(17, 17, 17))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(116, 116, 116)
-                    .addComponent(jLabel13)
-                    .addContainerGap(179, Short.MAX_VALUE)))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 180, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel14.setText("Barberos Durmiendo");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
 
         jScrollPane1.setViewportView(jList1);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 300, 108, 70));
+
         jLabel18.setText("Personas esperando ");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 260, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel19.setText("PERSONAS EN SOFA");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         persona1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/avatar-de-hombre.png"))); // NOI18N
+        jPanel2.add(persona1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 23, -1, -1));
 
         persona2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/avatar-de-hombre.png"))); // NOI18N
+        jPanel2.add(persona2, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 23, -1, -1));
 
         persona3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/avatar-de-hombre.png"))); // NOI18N
+        jPanel2.add(persona3, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 23, -1, -1));
 
         persona4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/avatar-de-hombre.png"))); // NOI18N
+        jPanel2.add(persona4, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 23, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(persona1)
-                .addGap(65, 65, 65)
-                .addComponent(persona2)
-                .addGap(42, 42, 42)
-                .addComponent(persona3)
-                .addGap(35, 35, 35)
-                .addComponent(persona4)
-                .addContainerGap(117, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(persona4)
-                    .addComponent(persona2)
-                    .addComponent(persona1)
-                    .addComponent(persona3))
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 460, 120));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 102));
         jButton1.setText("Agregar persona");
@@ -204,189 +177,48 @@ public class barberia extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(953, 93, 126, 39));
 
         cortando1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cortando.png"))); // NOI18N
+        getContentPane().add(cortando1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
 
         cortando2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cortando.png"))); // NOI18N
+        getContentPane().add(cortando2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, -1, -1));
 
         cortando3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cortando.png"))); // NOI18N
+        getContentPane().add(cortando3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 440, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabel14)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(707, 707, 707)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(53, 53, 53))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(cortando1))
-                        .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(cortando2))
-                        .addGap(80, 80, 80)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cortando3)
-                            .addComponent(jLabel7)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel19)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel4))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cortando1)
-                                    .addComponent(cortando2)
-                                    .addComponent(cortando3)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel18)
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        lbl_info1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_info1.setText("Esperando...");
+        getContentPane().add(lbl_info1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, -1, -1));
+
+        lbl_info2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_info2.setText("Esperando...");
+        getContentPane().add(lbl_info2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 520, -1, -1));
+
+        lbl_info3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_info3.setText("Esperando...");
+        getContentPane().add(lbl_info3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 520, -1, -1));
+
+        lbl_info.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_info.setText(".....");
+        getContentPane().add(lbl_info, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 580, -1, -1));
+
+        lbl_fila.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lbl_fila.setText("__");
+        getContentPane().add(lbl_fila, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 200, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public int cant_clientes;
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        Cliente nuevo = new Cliente("C" + this.nextCliente++);
-        
-        if(cant_clientes<3)
-        {
-                   try {
-                  mutex.acquire(); // Entra a la región crítica
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                this.insertar_elemento(nuevo); // Coloca el nuevo elemento en el búfer
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                mutex.release(); // Sale de la región crítica
-                Cliente_esperando++; 
-                                System.out.println(nuevo.get_Nombre() + " insertado" + nuevo.get_Tiempo());
-        }
-        else
-        {
-            espera(nuevo);
-        }
-
-//        espera = espera +1;
-//        if(espera==1)
-//        {
-//          persona1.setVisible(true);
-//         
-//        }
-//        if(espera==2)
-//        {
-//            persona2.setVisible(true);
-//            
-//        }
-//        if(espera==3)
-//        {
-//            persona3.setVisible(true);
-//            
-//        }
-//        if(espera==4)
-//        {
-//            persona4.setVisible(true);
-//       
-//        }
-//        
-            
+        nuevos = new Ingresar();
+        nuevos.nextCliente = nextCliente++;
+        nuevos.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
-    public void espera(Cliente nuevo)
-    {
-        if(list_espera==null)
-        {
-            list_espera = nuevo;
-        }
-        else
-        {
-            Cliente aux= list_espera;
-            while(aux.get_Next()!=null)
-            {
-                aux= aux.get_Next();
-            }
-            aux.set_Next(nuevo);
-        }
-    }
     /**
      * @param args the command line arguments
      */
@@ -422,24 +254,13 @@ public class barberia extends javax.swing.JFrame {
         });
     }
 
-    private static Semaphore mutex = new Semaphore(1, true); // Controla el acceso a la región crítica
-    private static int Cliente_esperando = 0; // Cuenta las ranuras Cliente_esperando del búfer
-    private barbershop Barberia = new barbershop();
-    Barbero b1;
-    Barbero b2;
-    Barbero b3;
-    
-    public void insertar_elemento(Cliente elemento){
-        if (Sillas[0]==null) {
-            Sillas[0] = elemento;
-        }
-        else if (Sillas[1]==null) {
-            Sillas[1] = elemento;
-        }
-        else if (Sillas[2]==null) {
-            Sillas[2] = elemento;
-        }
-    }
+    private static Semaphore mutex = new Semaphore(4, true); // Controla el acceso a la región crítica
+    private int Cliente_esperando; // Cuenta las ranuras Cliente_esperando del búfer
+    Barbero b1 = new Barbero();
+    Barbero b2 = new Barbero();
+    Barbero b3 = new Barbero();
+    Ingresar nuevos;
+    private static Cliente Sillas[] = new Cliente[3]; // Número de ranuras en el búfer
 
     public void quitar_elemento(int pos) {
 
@@ -454,70 +275,97 @@ public class barberia extends javax.swing.JFrame {
     /**
      * Clases a utilizar
      */
-    private static Cliente Sillas[] = new Cliente[3]; // Número de ranuras en el búfer
+    public class Ingresar extends Thread {
 
-    public class barbershop extends Thread {
+        public int nextCliente;
 
         @Override
         public void run() {
-            while (true) { // Ciclo de barberia
-                // Inicio semáforo Barbero
-                while (Cliente_esperando <= 0) {
-                    //    System.out.println("Sin Clientes ...");
-                }
-                                                 try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                                                                  System.out.println("Despertando a barberos ");
 
-                int ocupados = 0;
-                 if (Sillas[0] != null) {
-                    b1 = new Barbero();
-                    b1.numbarb = 1;
-                    b1.Set_Cliente(Sillas[0]);
-                    b1.start();
-                    ocupados++;
-                }
-                if (Sillas[1] != null) {
-                    b2 = new Barbero();
-                    b2.numbarb = 2;
-                    b2.Set_Cliente(Sillas[1]);
-                    b2.start();
-                    ocupados++;
-                }
-                if (Sillas[2] != null) {
-                    b3 = new Barbero();
-                    b3.numbarb = 3;
-                    b3.Set_Cliente(Sillas[2]);
-                    b3.start();
-                    ocupados++;
-                }
-                Cliente_esperando = (Cliente_esperando-ocupados);
-                // Fin semáforo Cliente_esperando
+            Cliente nuevo = new Cliente("C" + this.nextCliente);
 
+            if (Cliente_esperando < 3) {
+                try {
+                    mutex.acquire(); // Entra a la región crítica
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.insertar_elemento(nuevo); // Coloca el nuevo elemento en el búfer
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                mutex.release(); // Sale de la región crítica
+                Cliente_esperando++;
+                System.out.println(nuevo.get_Nombre() + " insertado " + nuevo.get_Tiempo());
+            } else {
+                espera(nuevo);
+                Cliente_esperando++;
+                System.out.println(nuevo.get_Nombre() + " insertado " + nuevo.get_Tiempo());
+            }
+            if (Cliente_esperando == 4) {
+                persona1.setVisible(true);
+
+            } else if (Cliente_esperando == 5) {
+                persona2.setVisible(true);
+
+            } else if (Cliente_esperando == 6) {
+                persona3.setVisible(true);
+
+            } else if (Cliente_esperando == 7) {
+                persona4.setVisible(true);
+            }
+            if (Cliente_esperando > 7) {
+                lbl_fila.setText("Personas en fila " + (Cliente_esperando - 7));
+            }
+
+        }
+
+        public void insertar_elemento(Cliente elemento) {
+            if (Sillas[0] == null) {
+                Sillas[0] = elemento;
+            } else if (Sillas[1] == null) {
+                Sillas[1] = elemento;
+            } else if (Sillas[2] == null) {
+                Sillas[2] = elemento;
             }
         }
+
+        public void espera(Cliente nuevo) {
+            if (list_espera == null) {
+                list_espera = nuevo;
+            } else {
+                Cliente aux = list_espera;
+                while (aux.get_Next() != null) {
+                    aux = aux.get_Next();
+                }
+                aux.set_Next(nuevo);
+            }
+        }
+
     }
 
     public class Barbero extends Thread {
 
-        private Cliente atendiendo;
         public int numbarb;
+        public JLabel info;
 
-        public void Set_Cliente(Cliente nuevo)
-        {
-            this.atendiendo = nuevo;
-        }
-        
         @Override
         public void run() {
-                 System.out.println("Despertando a barbero " + numbarb);
-                Cliente elemento = atendiendo;
+
+            while (true) {
+                while (Cliente_esperando <= 0) {
+                    lbl_info.setText("Sin clientes");
+                }
+                if (Sillas[numbarb] != null) {
+//                    lbl_info.setText("Atendiendo");
+                    this.info.setText("Despertando");
+                    this.despertar(numbarb);
+                    Cliente elemento = Sillas[numbarb];
                     try {
                         mutex.acquire(); // Entra a la región crítica
-                        System.out.println("Despertando a barbero " + numbarb);
+                        //   System.out.println("Despertando a barbero " + (numbarb+1));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -527,23 +375,94 @@ public class barberia extends javax.swing.JFrame {
                         Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     this.cortarCabello(elemento);
-                    quitar_elemento(numbarb-1);
+                    quitar_elemento(numbarb);
+                    dormir(numbarb);
                     mutex.release(); // Sale de la región crítica
+                    Cliente_esperando--;
+                    this.info.setText("Esperando...");
+                    esperando();
+                    if (Cliente_esperando > 7) {
+                        lbl_fila.setText("Personas en fila " + (Cliente_esperando - 7));
+                    }
 
+                }
+
+            }
         }
 
         private void cortarCabello(Cliente elemento) {
-            System.out.println("Cortando cabello a " + elemento.get_Nombre());
-            try {
-                Thread.sleep(elemento.get_Tiempo() * 1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+            for (int timer = elemento.get_Tiempo(); timer > 0; timer--) {
+                this.info.setText("Cortando cabello a " + elemento.get_Nombre() + " " + timer + "s");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            System.out.println("Termino corte a" + elemento.get_Nombre() );
+            this.info.setText("Termino corte a " + elemento.get_Nombre());
         }
+
+        public void despertar(int i) {
+            switch (i) {
+                case 0:
+                    barbero1.setVisible(false);
+                    lbl_zz1.setVisible(false);
+                    cortando1.setVisible(true);
+                    break;
+                case 1:
+                    barbero2.setVisible(false);
+                    lbl_zz2.setVisible(false);
+                    cortando2.setVisible(true);
+                    break;
+                case 2:
+                    barbero3.setVisible(false);
+                    lbl_zz3.setVisible(false);
+                    cortando3.setVisible(true);
+                    break;
+            }
+        }
+
+        public void dormir(int i) {
+            switch (i) {
+                case 0:
+                    barbero1.setVisible(true);
+                    lbl_zz1.setVisible(true);
+                    cortando1.setVisible(false);
+                    break;
+                case 1:
+                    barbero2.setVisible(true);
+                    lbl_zz2.setVisible(true);
+                    cortando2.setVisible(false);
+                    break;
+                case 2:
+                    barbero3.setVisible(true);
+                    lbl_zz3.setVisible(true);
+                    cortando3.setVisible(false);
+                    break;
+            }
+        }
+
+        public void esperando() {
+            switch (Cliente_esperando) {
+                case 3:
+                    persona1.setVisible(false);
+                    break;
+                case 4:
+                    persona2.setVisible(false);
+                    break;
+                case 5:
+                    persona3.setVisible(false);
+                    break;
+
+                case 6:
+                    persona4.setVisible(false);
+                    break;
+            }
+        }
+
     }
 
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel barbero1;
     private javax.swing.JLabel barbero2;
@@ -553,9 +472,6 @@ public class barberia extends javax.swing.JFrame {
     private javax.swing.JLabel cortando3;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -569,6 +485,14 @@ public class barberia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_fila;
+    private javax.swing.JLabel lbl_info;
+    private javax.swing.JLabel lbl_info1;
+    private javax.swing.JLabel lbl_info2;
+    private javax.swing.JLabel lbl_info3;
+    private javax.swing.JLabel lbl_zz1;
+    private javax.swing.JLabel lbl_zz2;
+    private javax.swing.JLabel lbl_zz3;
     private javax.swing.JLabel persona1;
     private javax.swing.JLabel persona2;
     private javax.swing.JLabel persona3;
