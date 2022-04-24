@@ -55,8 +55,10 @@ public class barberia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jLabel18 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -70,9 +72,6 @@ public class barberia extends javax.swing.JFrame {
         lbl_zz2 = new javax.swing.JLabel();
         lbl_zz3 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         persona1 = new javax.swing.JLabel();
@@ -89,19 +88,22 @@ public class barberia extends javax.swing.JFrame {
         lbl_info = new javax.swing.JLabel();
         lbl_fila = new javax.swing.JLabel();
 
+        jScrollPane1.setViewportView(jList1);
+
+        jLabel18.setText("Personas esperando ");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         jLabel1.setText("BARBEROS DORMILONES");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 388, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/poste-de-barbero (3).png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 60, 100));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 60, 100));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/poste-de-barbero (3).png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 30, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/silla.png"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
@@ -110,7 +112,7 @@ public class barberia extends javax.swing.JFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/silla.png"))); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 360, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 360, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,16 +144,9 @@ public class barberia extends javax.swing.JFrame {
         jLabel14.setText("Barberos Durmiendo");
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
 
-        jScrollPane1.setViewportView(jList1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 300, 108, 70));
-
-        jLabel18.setText("Personas esperando ");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 260, -1, -1));
-
         jLabel19.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel19.setText("PERSONAS EN SOFA");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, -1, -1));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -168,7 +163,7 @@ public class barberia extends javax.swing.JFrame {
         persona4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/avatar-de-hombre.png"))); // NOI18N
         jPanel2.add(persona4, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 23, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 460, 120));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 460, 120));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 102));
         jButton1.setText("Agregar persona");
@@ -177,7 +172,7 @@ public class barberia extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(953, 93, 126, 39));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 150, 126, 39));
 
         cortando1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cortando.png"))); // NOI18N
         getContentPane().add(cortando1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
@@ -186,7 +181,7 @@ public class barberia extends javax.swing.JFrame {
         getContentPane().add(cortando2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, -1, -1));
 
         cortando3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cortando.png"))); // NOI18N
-        getContentPane().add(cortando3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 440, -1, -1));
+        getContentPane().add(cortando3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 440, -1, -1));
 
         lbl_info1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lbl_info1.setText("Esperando...");
@@ -198,7 +193,7 @@ public class barberia extends javax.swing.JFrame {
 
         lbl_info3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lbl_info3.setText("Esperando...");
-        getContentPane().add(lbl_info3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 520, -1, -1));
+        getContentPane().add(lbl_info3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 520, -1, -1));
 
         lbl_info.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lbl_info.setText(".....");
@@ -206,7 +201,7 @@ public class barberia extends javax.swing.JFrame {
 
         lbl_fila.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lbl_fila.setText("__");
-        getContentPane().add(lbl_fila, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 200, -1, -1));
+        getContentPane().add(lbl_fila, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 230, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -283,7 +278,6 @@ public class barberia extends javax.swing.JFrame {
         public void run() {
 
             Cliente nuevo = new Cliente("C" + this.nextCliente);
-
             if (Cliente_esperando < 3) {
                 try {
                     mutex.acquire(); // Entra a la región crítica
@@ -358,14 +352,13 @@ public class barberia extends javax.swing.JFrame {
                 while (Cliente_esperando <= 0) {
                     lbl_info.setText("Sin clientes");
                 }
+                lbl_info.setText("Atendiendo");
                 if (Sillas[numbarb] != null) {
-//                    lbl_info.setText("Atendiendo");
                     this.info.setText("Despertando");
                     this.despertar(numbarb);
                     Cliente elemento = Sillas[numbarb];
                     try {
                         mutex.acquire(); // Entra a la región crítica
-                        //   System.out.println("Despertando a barbero " + (numbarb+1));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(barberia.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -381,7 +374,7 @@ public class barberia extends javax.swing.JFrame {
                     Cliente_esperando--;
                     this.info.setText("Esperando...");
                     esperando();
-                    if (Cliente_esperando > 7) {
+                    if (Cliente_esperando >= 7) {
                         lbl_fila.setText("Personas en fila " + (Cliente_esperando - 7));
                     }
 
@@ -475,7 +468,6 @@ public class barberia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
